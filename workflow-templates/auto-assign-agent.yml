@@ -9,66 +9,42 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Assign to PM Agent
+        run: gh issue edit ${{ github.event.issue.number }} --repo ${{ github.repository }} --add-assignee copilot-swe-agent[bot]
         env:
           GH_TOKEN: ${{ secrets.AGENT_PAT }}
-        run: |
-          gh issue edit ${{ github.event.issue.number }} \
-            --repo ${{ github.repository }} \
-            --add-assignee copilot-swe-agent[bot]
-          gh api repos/${{ github.repository }}/issues/${{ github.event.issue.number }} \
-            --method PATCH \
-            -H "Accept: application/vnd.github.v3+json" \
-            -f "assignees[]=copilot-swe-agent[bot]"
-          echo "Assigned PM Agent to issue #${{ github.event.issue.number }}"
 
   assign-dbapi-agent:
     if: github.event.label.name == 'db-api-agent'
     runs-on: ubuntu-latest
     steps:
       - name: Assign to DB API Agent
+        run: gh issue edit ${{ github.event.issue.number }} --repo ${{ github.repository }} --add-assignee copilot-swe-agent[bot]
         env:
           GH_TOKEN: ${{ secrets.AGENT_PAT }}
-        run: |
-          gh issue edit ${{ github.event.issue.number }} \
-            --repo ${{ github.repository }} \
-            --add-assignee copilot-swe-agent[bot]
-          echo "Assigned DB API Agent to issue #${{ github.event.issue.number }}"
 
   assign-web-agent:
     if: github.event.label.name == 'web-agent'
     runs-on: ubuntu-latest
     steps:
       - name: Assign to Web Agent
+        run: gh issue edit ${{ github.event.issue.number }} --repo ${{ github.repository }} --add-assignee copilot-swe-agent[bot]
         env:
           GH_TOKEN: ${{ secrets.AGENT_PAT }}
-        run: |
-          gh issue edit ${{ github.event.issue.number }} \
-            --repo ${{ github.repository }} \
-            --add-assignee copilot-swe-agent[bot]
-          echo "Assigned Web Agent to issue #${{ github.event.issue.number }}"
 
   assign-mobile-agent:
     if: github.event.label.name == 'mobile-agent'
     runs-on: ubuntu-latest
     steps:
       - name: Assign to Mobile Agent
+        run: gh issue edit ${{ github.event.issue.number }} --repo ${{ github.repository }} --add-assignee copilot-swe-agent[bot]
         env:
           GH_TOKEN: ${{ secrets.AGENT_PAT }}
-        run: |
-          gh issue edit ${{ github.event.issue.number }} \
-            --repo ${{ github.repository }} \
-            --add-assignee copilot-swe-agent[bot]
-          echo "Assigned Mobile Agent to issue #${{ github.event.issue.number }}"
 
   assign-qa-agent:
     if: github.event.label.name == 'qa-agent'
     runs-on: ubuntu-latest
     steps:
       - name: Assign to QA Agent
+        run: gh issue edit ${{ github.event.issue.number }} --repo ${{ github.repository }} --add-assignee copilot-swe-agent[bot]
         env:
           GH_TOKEN: ${{ secrets.AGENT_PAT }}
-        run: |
-          gh issue edit ${{ github.event.issue.number }} \
-            --repo ${{ github.repository }} \
-            --add-assignee copilot-swe-agent[bot]
-          echo "Assigned QA Agent to issue #${{ github.event.issue.number }}"

@@ -1,0 +1,29 @@
+name: Agent Notifications
+on:
+  issues:
+    types: [assigned]
+
+jobs:
+  notify-issue-assigned:
+    if: contains(github.event.assignee.login, 'copilot')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Read webhook URL
+        id: config
+        run: |
+          WEBHOOK=$(grep -oP '(?<=URL: )https://\S+' docs/TEAMS_CONFIG.md | head -1)
+          echo "webhook=$WEBHOOK" >> $GITHUB_OUTPUT
+      - name: Notify Teams - agent started
+        env:
+          WEBHOOK: ${{ steps.config.outputs.webhook }}
+          ISSUE_NUM: ${{ github.event.issue.number }}
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_URL: ${{ github.event.issue.html_url }}
+          REPO: ${{ github.event.repository.name }}
+        run: |
+          CLEAN_TITLE=$(echo "$ISSUE_TITLE" | tr -d '"\\' | sed "s/'//g")
+          TEXT="ATM-Software / ${REPO}\n\nCopilot Agent started working on Issue #${ISSUE_NUM}: ${CLEAN_TITLE}\n\n${ISSUE_URL}"
+          curl -X POST "$WEBHOOK" \
+            -H "Content-Type: application/json" \
+            -d "{\"text\":\"${TEXT}\"}"
