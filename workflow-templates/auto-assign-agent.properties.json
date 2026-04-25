@@ -1,0 +1,6 @@
+{
+  "name": "Auto Assign Agent",
+  "description": "Automatically assigns GitHub Copilot custom agents based on issue labels",
+  "iconName": "octicon-hubot",
+  "categories": ["Automation"]
+}
